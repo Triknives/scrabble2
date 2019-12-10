@@ -1,23 +1,42 @@
-class String
+class Word
+  def initialize(word)
+    @word = word
+    @one_point = {"A" => 1, "E" => 1, "I" => 1, "O" => 1, "U" => 1, "L" => 1, "N" => 1, "R" => 1, "S" => 1, "T" => 1}
+    @two_point = {"D" => 2, "G" => 2}
+    @three_point = {"B" => 3, "C" => 3, "M" => 3, "P" => 3}
+    @four_point = {"F" => 4, "H" => 4, "V" => 4, "W" => 4, "Y" => 4}
+    @five_point = {"K" => 5}
+    @eight_point = {"J" => 8, "X" => 8}
+    @ten_point = {"Q" => 10, "Z" => 10}
+  end
+  # point_hashes = [@one_point, @two_point, ]
+  # point_hashes.each do |obj|
+  #   if obj.keys.include?(l)
+  #     counter += obj.fetch(l);
+  #   end
+  # end
+
   def scrabble_game()
-    self.upcase()
-    letterscore = 0
-    onepointarray = ["A", "E", "I", "O", "U", "L", "N", "R", "S", "T" ]
-    twopointarray = ["D", "G" ]
-    threepointarray = ["B", "C", "M", "P"  ]
-    fourpointarray = ["F", "H", "V", "W", "Y"]
-    fivepointarray = ["K"]
-    eightpointarray = ["J", "X" ]
-    tenpointarray = ["Q", "Z" ]
-
-    if onepointarray.include?(self)
-      letterscore += 1
-    elsif twopointarray.include?(self)
-      letterscore += 2
-    elsif threepointarray.include?(self)
-      letterscore += 3
+    new_word = @word.upcase().split("")
+    counter = 0
+    new_word.each do | l |
+      if l == "Q" || l == "Z"
+        counter += @ten_point.fetch("Q")
+      elsif l == "J" || l == "X"
+        counter += @eight_point.fetch("J")
+      elsif l == "K"
+        counter += @five_point.fetch("K")
+      elsif l == "F" || l == "H" || l == "V" || l == "W" || l == "Y"
+        counter += @four_point.fetch("F")
+      elsif l == "B" || l == "C" || l == "M" || l == "P"
+        counter += @three_point.fetch("B")
+      elsif l == "G" || l == "D"
+        counter += @two_point.fetch("D")
+      elsif l == "A" || l == "E" || l == "I" || l == "O" || l == "U" || l == "L" || l == "N" || l == "R" || l == "S" || l == "T"
+        counter += @one_point.fetch("A")
+      end
     end
-    letterscore
 
+    counter
   end
 end
